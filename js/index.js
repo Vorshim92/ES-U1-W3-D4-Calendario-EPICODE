@@ -64,10 +64,8 @@ const dayNames = [
 // 1) abbiamo il valore numerico, di nr di giorni in questo mese, in uscita dalla funzione daysInThisMonth
 
 // 5b) deselezionare eventuali altri elementi selezionati
-const unselectPreviousDay = () => {};
 
 // 6) cambiare numero in newMeetingDay
-const changeDayNumber = (dayNumber) => {};
 
 // 8) creo una funzione per gestire la visualizzazione dei miei appuntamenti
 const showAppointments = (dayIndex) => {};
@@ -94,9 +92,8 @@ const createDaysAndMonth = (month, year) => {
     <h3 id="giorno">${i}</h3></div>`; // da sistemare l'aggiunta dello span weekday per mettere in automatico anche i giorni della settimana
   }
   let spanWeekDay = document.querySelectorAll(".day");
-  let j = lastDayMonth.getDay();
+  let j = lastDayMonth.getDay(); // definisco il giorno della settimana dell'ultimo del mese con GetDay per il primo giro del for (i = lastDayMonth.getDate() - 1)
   for (let i = lastDayMonth.getDate() - 1; i >= 0; i--) {
-    console.log(j);
     const span = document.createElement("span");
     span.classList.add("weekday");
     span.innerText = dayNames[j];
@@ -116,18 +113,35 @@ const createDaysAndMonth = (month, year) => {
       }
     });
   }
+
+  selectDay();
 };
 
-// const numerazioneGiorniSettimana = () => {
-//   let spanWeekDay = document.querySelectorAll(".day");
+const selectDay = () => {
+  let giorni = document.getElementsByClassName("day");
 
-//   spanWeekDay.forEach((obj) => {
-//     const span = document.createElement("span");
-//     span.classList.add("weekday");
-//     span.innerText = dayNames[0];
-//     obj.appendChild(span);
-//   });
-// };
+  for (let i = 0; i < giorni.length; i++) {
+    giorni[i].addEventListener("click", function () {
+      let selectedDay = document.querySelector(".selected");
+      console.log(selectedDay);
+      if (selectedDay) {
+        selectedDay.classList.remove("selected");
+      }
+      this.classList.add("selected");
+
+      changeDayNumber();
+    });
+  }
+};
+
+const changeDayNumber = () => {
+  const meetingDay = document.getElementById("newMeetingDay");
+
+  let daySelected = document.querySelector(".selected");
+  if (daySelected) {
+    meetingDay.innerText = daySelected.innerText;
+  }
+};
 
 const nextMonth = document
   .getElementById("forward")
@@ -153,11 +167,11 @@ const prevMonth = document
     return createDaysAndMonth(actualMonth, actualYear);
   });
 
-// 4)
-
 // 👇👇👇 punto di ingresso del nostro codice
 window.onload = function () {
   createDaysAndMonth(now.getMonth(), now.getFullYear());
+
+  changeDayNumber();
 
   // tutte le risorse sono a questo punto già caricate nel browser
   // è il momento più sicuro per cominciare a cercare gli elementi nel DOM

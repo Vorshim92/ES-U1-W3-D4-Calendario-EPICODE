@@ -95,7 +95,7 @@ form {
 }
 
 .day.selected {
-  border-color: #7a408a;
+  border: 2px solid #7a408a;
 }
 
 .dot {
