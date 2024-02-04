@@ -123,12 +123,15 @@ const selectDay = () => {
   for (let i = 0; i < giorni.length; i++) {
     giorni[i].addEventListener("click", function () {
       let selectedDay = document.querySelector(".selected");
-      console.log(selectedDay);
-      if (selectedDay) {
-        selectedDay.classList.remove("selected");
-      }
       this.classList.add("selected");
-
+      console.log(selectedDay);
+      console.log(this);
+      if (this === selectedDay) {
+        this.classList.remove("selected");
+      } else if (selectedDay) {
+        selectedDay.classList.remove("selected");
+        this.classList.add("selected");
+      }
       changeDayNumber();
     });
   }
@@ -140,6 +143,8 @@ const changeDayNumber = () => {
   let daySelected = document.querySelector(".selected");
   if (daySelected) {
     meetingDay.innerText = daySelected.innerText;
+  } else if (!daySelected) {
+    meetingDay.innerText = "Click on a Day";
   }
 };
 
