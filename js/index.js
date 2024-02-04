@@ -81,18 +81,33 @@ const saveMeeting = function (e) {
 const createDaysAndMonth = (month, year) => {
   const h1 = document.querySelector("h1");
   // h1.innerText = monthNames[month] + " " + year;
-  h1.innerHTML = monthNames[month] + " " + year;
-  const lastDayMonth = new Date(year, month + 1, 0);
+  h1.innerHTML = monthNames[month] + " " + year; // modifica il mese e l'anno nel titolo
+
+  let lastDayMonth = new Date(year, month + 1, 0); // "month + 1" ci da il mese successivo, la posizione "0" nel mese è intesa come ultimo giorno del mese precedente, quindi ci restituisce l'ultimo giorno del mese passato e sappiamo quindi di quanti giorni era formato
 
   const cellDays = document.getElementById("calendar");
-  cellDays.innerHTML = ``;
+  cellDays.innerHTML = ``; // resetta il calendario ad ogni iterazione della funzione
 
   for (let i = 1; i <= lastDayMonth.getDate(); i++) {
+    // ciclo che aggiunge il numero di celle in base al numero di giorni del mese corrente (o selezionato)
     cellDays.innerHTML += `<div class="day">
-    <h3 id="giorno">${i}</h3>
-    <span class="weekday">${dayNames[lastDayMonth.getDay()]}</span>
-    </div>`;
+    <h3 id="giorno">${i}</h3></div>`; // da sistemare l'aggiunta dello span weekday per mettere in automatico anche i giorni della settimana
   }
+  let spanWeekDay = document.querySelectorAll(".day");
+  let j = lastDayMonth.getDay();
+  for (let i = lastDayMonth.getDate() - 1; i >= 0; i--) {
+    console.log(j);
+    const span = document.createElement("span");
+    span.classList.add("weekday");
+    span.innerText = dayNames[j];
+    spanWeekDay[i].appendChild(span);
+    j--;
+    if (j < 0) {
+      j = 6;
+    }
+  }
+
+  // CONDIZIONE PER SELEZIONE SOLO SUL GIORNO CORRENTE (CON CONDIZIONE su MESE e ANNO)
   if (month === now.getMonth() && year === now.getFullYear()) {
     let allDay = document.querySelectorAll("#giorno");
     allDay.forEach((e) => {
@@ -102,6 +117,17 @@ const createDaysAndMonth = (month, year) => {
     });
   }
 };
+
+// const numerazioneGiorniSettimana = () => {
+//   let spanWeekDay = document.querySelectorAll(".day");
+
+//   spanWeekDay.forEach((obj) => {
+//     const span = document.createElement("span");
+//     span.classList.add("weekday");
+//     span.innerText = dayNames[0];
+//     obj.appendChild(span);
+//   });
+// };
 
 const nextMonth = document
   .getElementById("forward")
