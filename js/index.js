@@ -37,7 +37,8 @@ const appointments = [];
 const now = new Date(); // estrae il momento nel tempo attuale in cui si esegue in forma di data
 let actualMonth = now.getMonth();
 let actualYear = now.getFullYear();
-let actualDay = now.getDay();
+let lastSelMonthYear;
+let lastSelDay;
 const monthNames = [
   "Gennaio",
   "Febbraio",
@@ -75,7 +76,7 @@ const saveMeeting = function (e) {
   // da fare sempre per una funzione collegata al submit di un form
 };
 
-// 2) creazione dinamica delle celle in base al numero di giorni in arrivo come parametro
+// 2) creazione dinamica delle celle in base al mese e anno in arrivo come parametro
 const createDaysAndMonth = (month, year) => {
   const h1 = document.querySelector("h1");
   // h1.innerText = monthNames[month] + " " + year;
@@ -103,8 +104,18 @@ const createDaysAndMonth = (month, year) => {
       j = 6;
     }
   }
+  // INIZIALIZZAZIONE EVENTLISTENER su OGNI DIV per il CLICK FUNCTION
+  selectDay();
 
   // CONDIZIONE PER SELEZIONE SOLO SUL GIORNO CORRENTE (CON CONDIZIONE su MESE e ANNO)
+  currentDay(month, year);
+
+  // CONDIZIONE PER RIPRISTINARE LA SELEZIONE NEL MESE IN CUI E' STATA SELEZIONATA
+
+  restoreSelection(h1.innerHTML);
+};
+
+const currentDay = (month, year) => {
   if (month === now.getMonth() && year === now.getFullYear()) {
     let allDay = document.querySelectorAll("#giorno");
     allDay.forEach((e) => {
@@ -113,8 +124,17 @@ const createDaysAndMonth = (month, year) => {
       }
     });
   }
+};
 
-  selectDay();
+const restoreSelection = (monthYear) => {
+  if (monthYear === lastSelMonthYear) {
+    let allDays = document.querySelectorAll(".day");
+    allDays.forEach((day) => {
+      if (parseInt(day.innerText) === lastSelDay) {
+        day.classList.add("selected");
+      }
+    });
+  }
 };
 
 const selectDay = () => {
@@ -124,14 +144,19 @@ const selectDay = () => {
     giorni[i].addEventListener("click", function () {
       let selectedDay = document.querySelector(".selected");
       this.classList.add("selected");
-      console.log(selectedDay);
-      console.log(this);
+      lastSelDay = parseInt(this.innerText);
+      lastSelMonthYear = document.querySelector("h1").innerText;
       if (this === selectedDay) {
         this.classList.remove("selected");
+        lastSelDay = null;
+        lastSelMonthYear = null;
       } else if (selectedDay) {
         selectedDay.classList.remove("selected");
         this.classList.add("selected");
+        lastSelDay = parseInt(this.innerText);
+        lastSelMonthYear = document.querySelector("h1").innerText;
       }
+
       changeDayNumber();
     });
   }
@@ -157,6 +182,7 @@ const nextMonth = document
     } else {
       actualMonth += 1; // Aggiorna month
     }
+
     return createDaysAndMonth(actualMonth, actualYear);
   });
 
@@ -169,6 +195,7 @@ const prevMonth = document
     } else {
       actualMonth -= 1; // Aggiorna month
     }
+
     return createDaysAndMonth(actualMonth, actualYear);
   });
 
