@@ -5,10 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;700;900&display=swap"
-      rel="stylesheet"
-    />
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;700;900&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="./assets/css/style.css" />
     <title>EpiCalendar</title>
   </head>
@@ -16,17 +13,9 @@
   <body>
     <div class="container">
       <div class="months">
-        <img
-          src="./assets/img/arrow-left-334-svgrepo-com.svg"
-          alt=""
-          id="back"
-        />
+        <img src="./assets/img/arrow-left-334-svgrepo-com.svg" alt="" id="back" />
         <h1></h1>
-        <img
-          src="./assets/img/arrow-right-333-svgrepo-com.svg"
-          alt=""
-          id="forward"
-        />
+        <img src="./assets/img/arrow-right-333-svgrepo-com.svg" alt="" id="forward" />
       </div>
       <div id="calendar"></div>
 
@@ -34,21 +23,16 @@
       <div id="addMeeting">
         <div>
           <h4>Meeting Day</h4>
-          <span id="newMeetingDay"></span>
+          <span id="newMeetingDay">Click on a Day</span>
         </div>
-        <form>
+        <form id="meeting">
           <div>
             <h4>Meeting Time</h4>
             <input type="time" id="newMeetingTime" required />
           </div>
           <div>
             <h4>Meeting Name</h4>
-            <input
-              type="text"
-              id="newMeetingName"
-              placeholder="Insert a name for the meeting"
-              required
-            />
+            <input type="text" id="newMeetingName" placeholder="Insert a name for the meeting" required />
           </div>
           <div>
             <h4>Add</h4>
@@ -57,7 +41,7 @@
         </form>
       </div>
       <!-- questa sezione è normalmente nascosta, fino a che non la si rende visibile tramite JS -->
-      <div id="appointments">
+      <div class="appointments">
         <h2>Appointments For the Day:</h2>
         <ul id="appointmentsList">
           <!-- nel caso vi siano appuntamenti da mostrare, verranno generati via JS dei <li> e posizionati qui -->

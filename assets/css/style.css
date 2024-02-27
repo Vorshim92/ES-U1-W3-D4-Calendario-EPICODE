@@ -179,7 +179,7 @@ form button {
   font-weight: 700;
 }
 
-#appointments {
+.appointments {
   display: none;
 }
 
