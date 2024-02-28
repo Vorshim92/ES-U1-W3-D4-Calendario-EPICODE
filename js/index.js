@@ -161,21 +161,22 @@ const selectDay = () => {
 const showAppointments = (selDay, selMonth) => {
   const savedEvents = sessionStorage.getItem(storageKey);
   const uList = document.getElementById("appointmentsList");
+  const divList = document.getElementById("div-appointments");
+  uList.innerHTML = ``;
   if (document.querySelector(".selected")) {
     const savedEventsArr = JSON.parse(savedEvents);
     const dayAppointments = savedEventsArr.filter((obj) => parseInt(obj.day) === selDay && obj.month === selMonth);
-    console.log(dayAppointments);
     if (dayAppointments.length === 0) {
-      return document.getElementById("div-appointments").classList.add("appointments");
+      divList.classList.add("appointments");
     }
     dayAppointments.forEach((appointment) => {
       const newLi = document.createElement("li");
-      document.getElementById("div-appointments").classList.remove("appointments");
+      divList.classList.remove("appointments");
       newLi.innerText = `ORA: ${appointment.time} - NOME: ${appointment.name}`;
       uList.appendChild(newLi);
     });
   } else if (!document.querySelector(".selected")) {
-    uList.innerHTML = ``;
+    // uList.innerHTML = ``;
     document.getElementById("div-appointments").classList.add("appointments");
   }
 };
