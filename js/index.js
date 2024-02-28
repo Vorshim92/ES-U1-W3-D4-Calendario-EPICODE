@@ -67,25 +67,6 @@ const addMettingEvent = function (e) {
 const form = document.getElementById("meeting");
 form.addEventListener("submit", addMettingEvent);
 
-const showAppointments = (selDay, selMonth) => {
-  const savedEvents = sessionStorage.getItem(storageKey);
-  const uList = document.getElementById("appointmentsList");
-
-  if (storageKey) {
-    const savedEventsArr = JSON.parse(savedEvents);
-    const dayAppointments = savedEventsArr.filter((obj) => parseInt(obj.day) === selDay && obj.month === selMonth);
-    console.log(dayAppointments);
-    dayAppointments.forEach((appointment) => {
-      const newLi = document.createElement("li");
-      document.querySelector(".appointments").classList.remove("appointments");
-      newLi.innerText = `ORA: ${appointment.time} - NOME: ${appointment.name}`;
-      uList.appendChild(newLi);
-    });
-  } else {
-    uList.innerHTML = ``;
-  }
-};
-
 // 2) creazione dinamica delle celle in base al mese e anno in arrivo come parametro
 const createDaysAndMonth = (month, year) => {
   const h1 = document.querySelector("h1");
@@ -175,6 +156,27 @@ const selectDay = () => {
       changeDayNumber();
       showAppointments(lastSelDay, monthNames[actualMonth]);
     });
+  }
+};
+const showAppointments = (selDay, selMonth) => {
+  const savedEvents = sessionStorage.getItem(storageKey);
+  const uList = document.getElementById("appointmentsList");
+  if (document.querySelector(".selected")) {
+    const savedEventsArr = JSON.parse(savedEvents);
+    const dayAppointments = savedEventsArr.filter((obj) => parseInt(obj.day) === selDay && obj.month === selMonth);
+    console.log(dayAppointments);
+    if (dayAppointments.length === 0) {
+      return document.getElementById("div-appointments").classList.add("appointments");
+    }
+    dayAppointments.forEach((appointment) => {
+      const newLi = document.createElement("li");
+      document.getElementById("div-appointments").classList.remove("appointments");
+      newLi.innerText = `ORA: ${appointment.time} - NOME: ${appointment.name}`;
+      uList.appendChild(newLi);
+    });
+  } else if (!document.querySelector(".selected")) {
+    uList.innerHTML = ``;
+    document.getElementById("div-appointments").classList.add("appointments");
   }
 };
 
