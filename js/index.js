@@ -176,8 +176,7 @@ const showAppointments = (selDay, selMonth) => {
       uList.appendChild(newLi);
     });
   } else if (!document.querySelector(".selected")) {
-    // uList.innerHTML = ``;
-    document.getElementById("div-appointments").classList.add("appointments");
+    divList.classList.add("appointments");
   }
 };
 
