@@ -17,35 +17,40 @@
         <h1></h1>
         <img src="./assets/img/arrow-right-333-svgrepo-com.svg" alt="" id="forward" />
       </div>
-      <div id="calendar"></div>
-
-      <h2>Add Meeting</h2>
-      <div id="addMeeting">
-        <div>
-          <h4>Meeting Day</h4>
-          <span id="newMeetingDay">Click on a Day</span>
+      <div style="display: flex">
+        <div style="width: 60%">
+          <div id="calendar"></div>
+          <h2>Add Meeting</h2>
+          <div id="addMeeting">
+            <div>
+              <h4>Meeting Day</h4>
+              <span id="newMeetingDay">Click on a Day</span>
+            </div>
+            <form id="meeting">
+              <div>
+                <h4>Meeting Time</h4>
+                <input type="time" id="newMeetingTime" required />
+              </div>
+              <div>
+                <h4>Meeting Name</h4>
+                <input type="text" id="newMeetingName" placeholder="Insert a name for the meeting" required />
+              </div>
+              <div>
+                <h4>Add</h4>
+                <button type="submit">Save Meeting</button>
+              </div>
+            </form>
+          </div>
         </div>
-        <form id="meeting">
-          <div>
-            <h4>Meeting Time</h4>
-            <input type="time" id="newMeetingTime" required />
+        <!-- questa sezione è normalmente nascosta, fino a che non la si rende visibile tramite JS -->
+        <div style="width: 40%; margin-left: 50px">
+          <div id="div-appointments" class="appointments">
+            <h2>Appointments For the Day:</h2>
+            <ul id="appointmentsList">
+              <!-- nel caso vi siano appuntamenti da mostrare, verranno generati via JS dei <li> e posizionati qui -->
+            </ul>
           </div>
-          <div>
-            <h4>Meeting Name</h4>
-            <input type="text" id="newMeetingName" placeholder="Insert a name for the meeting" required />
-          </div>
-          <div>
-            <h4>Add</h4>
-            <button type="submit">Save Meeting</button>
-          </div>
-        </form>
-      </div>
-      <!-- questa sezione è normalmente nascosta, fino a che non la si rende visibile tramite JS -->
-      <div id="div-appointments" class="appointments">
-        <h2>Appointments For the Day:</h2>
-        <ul id="appointmentsList">
-          <!-- nel caso vi siano appuntamenti da mostrare, verranno generati via JS dei <li> e posizionati qui -->
-        </ul>
+        </div>
       </div>
     </div>
 
